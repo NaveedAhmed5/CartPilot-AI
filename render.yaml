@@ -1,0 +1,24 @@
+# Render Blueprint (alternative to Hugging Face Spaces). Free web services sleep
+# after 15 minutes idle; keep them warm with an uptime pinger on /health.
+services:
+  - type: web
+    name: cartpilot-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: CLAUDE_MODEL
+        value: claude-haiku-5-5
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
